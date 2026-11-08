@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f8fa">
+    <meta name="description" content="Lihat desain perangkat JAGA dalam 3D. Putar, zoom, dan jelajahi detailnya langsung di browser.">
+    <meta property="og:title" content="JAGA — Jelajahi dalam 3D">
+    <meta property="og:description" content="Putar, zoom, dan lihat desain JAGA dari setiap sisi.">
+    <meta property="og:type" content="website">
+    <title>JAGA — Jelajahi dalam 3D</title>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="./styles.css">
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body>
+    <svg class="icon-definitions" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <symbol id="icon-rotate" viewBox="0 0 24 24"><path d="M20 8a8 8 0 1 0 .3 7M20 3v5h-5"/></symbol>
+        <symbol id="icon-reset" viewBox="0 0 24 24"><path d="M3 10a9 9 0 1 1 2 8M3 4v6h6"/></symbol>
+        <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+        <symbol id="icon-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+        <symbol id="icon-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 15v5h16v-5"/></symbol>
+      </defs>
+    </svg>
+    <header class="site-header page-width">
+      <a class="wordmark" href="./" aria-label="JAGA, halaman utama">
+        <svg class="brand-mark" viewBox="0 0 58 42" fill="none" aria-hidden="true">
+          <path d="M10 21Q29 1 48 21Q29 41 10 21Z" stroke="currentColor" stroke-width="2.2"/>
+          <path d="m29 11-7 20h14Z" fill="currentColor"/>
+          <path d="M29 16v3m0 4v4" stroke="white" stroke-width="1.4"/>
+          <path d="M5 13V7h7M46 7h7v6M53 29v6h-7M12 35H5v-6" stroke="#f47c31" stroke-width="2.6" stroke-linejoin="round"/>
+        </svg>
+        <span>JAGA<span class="brand-tagline">EYE ALERT TECH</span></span>
+      </a>
+      <span class="header-note"><span class="status-dot"></span>Eksplorasi produk</span>
+    </header>
+
+    <main class="page-width">
+      <section class="intro" aria-labelledby="title">
+        <p class="eyebrow">DESAIN PRODUK · 3D</p>
+        <h1 id="title">JAGA, dari setiap sisi.</h1>
+        <p class="intro-copy">Putar, dekatkan, dan jelajahi detail perangkatnya.</p>
+      </section>
+
+      <section class="viewer-card" aria-label="Penampil model JAGA tiga dimensi" aria-busy="true">
+        <div class="stage">
+          <div class="stage-label"><span class="material-swatch"></span>Graphite<span class="stage-divider">/</span>JAGA 01</div>
+          <model-viewer
+            id="jaga-model"
+            src="./assets/JAGA_Product.glb"
+            poster="./assets/poster.png"
+            alt="Model 3D perangkat JAGA warna graphite, dengan lensa dan indikator di depan, logo di atas dan samping, dudukan, kabel melingkar, serta colokan mobil."
+            aria-describedby="viewer-help"
+            camera-controls
+            touch-action="pan-y"
+            camera-orbit="32deg 58deg 88%"
+            field-of-view="32deg"
+            min-camera-orbit="auto 5deg 55%"
+            zoom-sensitivity="0.6"
+            max-camera-orbit="auto 100deg 190%"
+            environment-image="neutral"
+            exposure="1"
+            shadow-intensity="0.65"
+            shadow-softness="1"
+            interaction-prompt="none"
+            loading="eager"
+            reveal="auto"
+            auto-rotate-delay="0"
+            rotation-per-second="12deg"
+          >
+            <div slot="progress-bar" class="load-panel" id="load-panel">
+              <span id="load-label" role="status">Menyiapkan model 3D…</span>
+              <progress id="load-progress" max="1" value="0" aria-label="Memuat model JAGA"></progress>
+            </div>
+            <div class="error-panel" id="model-error" hidden>
+              <strong>Model belum bisa dimuat.</strong>
+              <p id="error-message">Periksa koneksi, lalu coba lagi.</p>
+              <button id="retry" class="text-button" type="button">Coba lagi</button>
+            </div>
+          </model-viewer>
+
+          <div class="zoom-controls" aria-label="Kontrol zoom">
+            <button type="button" class="icon-button" id="zoom-in" aria-label="Perbesar model" title="Perbesar" disabled><svg><use href="#icon-plus"/></svg></button>
+            <button type="button" class="icon-button" id="zoom-out" aria-label="Perkecil model" title="Perkecil" disabled><svg><use href="#icon-minus"/></svg></button>
+            <span class="control-divider"></span>
+            <button type="button" class="icon-button" id="reset" aria-label="Kembalikan tampilan awal" title="Reset tampilan" disabled><svg><use href="#icon-reset"/></svg></button>
+          </div>
+        </div>
+
+        <div class="viewer-toolbar">
+          <div class="view-presets" role="group" aria-label="Pilih sudut pandang">
+            <button type="button" data-view="perspective" aria-pressed="true" disabled>Perspektif</button>
+            <button type="button" data-view="front" aria-pressed="false" disabled>Depan</button>
+            <button type="button" data-view="top" aria-pressed="false" disabled>Atas</button>
+            <button type="button" data-view="side" aria-pressed="false" disabled>Samping</button>
+          </div>
+          <button class="rotate-button" id="rotate" type="button" aria-pressed="false" disabled><svg><use href="#icon-rotate"/></svg><span>Putar otomatis</span></button>
+        </div>
+      </section>
+
+      <div class="below-viewer">
+        <p class="viewer-help" id="viewer-help">Geser untuk memutar. Gulir atau cubit untuk zoom.</p>
+        <a class="download-link" href="./assets/JAGA_Product.glb" download="JAGA_Product.glb"><svg><use href="#icon-download"/></svg>Unduh model 3D<span class="file-type">GLB · 1,4 MB</span></a>
+      </div>
+      <p class="sr-only" id="view-announcement" role="status" aria-live="polite"></p>
+      <noscript><p class="no-script">Aktifkan JavaScript untuk memutar model 3D. Gambar pratinjau dan <a href="./assets/JAGA_Product.glb">file model</a> tetap tersedia.</p><img class="no-script-image" src="./assets/poster.png" alt="Pratinjau desain perangkat JAGA"></noscript>
+    </main>
+
+    <footer class="site-footer page-width">
+      <span>JAGA<span class="footer-dot">·</span>Eye Alert Tech</span>
+      <span>Visualisasi konsep. Proporsi mengikuti referensi desain.</span>
+    </footer>
+  </body>
+</html>
